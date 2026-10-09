@@ -1,0 +1,44 @@
+/* Authentication pages share the Playful Geometric tokens from index.css. */
+.auth-page {
+  position: relative;
+  isolation: isolate;
+  background-color: #fffdf5;
+  background-image: radial-gradient(#c4b5fd 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+.auth-page::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(135deg, rgba(251, 191, 36, .12), transparent 40%);
+}
+
+.auth-shell { position: relative; z-index: 1; }
+
+.auth-visual {
+  position: relative;
+  overflow: hidden;
+  min-height: 620px;
+  border: 2px solid #1e293b;
+  border-radius: 2rem 2rem 2rem 0;
+  background: #fef3c7;
+  box-shadow: 8px 8px 0 #fbbf24;
+}
+
+.auth-visual img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.auth-visual-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 45%, rgba(30, 41, 59, .38)); }
+.auth-badge { border: 2px solid #1e293b; background: #fffdf5; box-shadow: 4px 4px 0 #f472b6; }
+.auth-card { position: relative; background: #fff; }
+.auth-input { width: 100%; padding: .9rem 1rem; }
+.auth-link { color: #1e293b; text-decoration: none; }
+.auth-link:hover { color: #8b5cf6; }
+.auth-button { min-height: 48px; border: 2px solid #1e293b; border-radius: 9999px; background: #8b5cf6; color: white; box-shadow: 4px 4px 0 #1e293b; }
+.auth-button:hover:not(:disabled) { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 #1e293b; }
+.auth-button:disabled { cursor: not-allowed; opacity: .7; }
+
+@media (max-width: 1024px) { .auth-visual { min-height: 420px; } }
+@media (max-width: 640px) { .auth-visual { min-height: 300px; box-shadow: 4px 4px 0 #fbbf24; } }
+@media (prefers-reduced-motion: reduce) { .auth-button { transition: none; } }

@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+:root {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  color: #1e293b;
+  background: #fffdf5;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  --paper: #fffdf5;
+  --ink: #1e293b;
+  --muted: #64748b;
+  --violet: #8b5cf6;
+  --pink: #f472b6;
+  --yellow: #fbbf24;
+  --mint: #34d399;
+  --line: #e2e8f0;
+  --pop: 4px 4px 0 #1e293b;
+  --sticker: 7px 7px 0 #e2e8f0;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; min-height: 100vh; background: var(--paper); color: var(--ink); }
+body, input, button, select, textarea { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; }
+h1, h2, h3, h4, .font-black, .font-extrabold { font-family: 'Outfit', system-ui, sans-serif; }
+button, a, input, select { -webkit-tap-highlight-color: transparent; }
+a { color: inherit; }
+button { cursor: pointer; }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 3px solid var(--violet); outline-offset: 3px;
+}
+
+/* The storefront's utility-heavy pages all share one paper, ink, and sticker language. */
+main.min-h-screen { background-color: var(--paper) !important; color: var(--ink) !important; }
+header { color: var(--ink); }
+header:not(.auth-shell) { background: rgba(255,253,245,.96) !important; border-color: var(--line) !important; box-shadow: 0 2px 0 rgba(30,41,59,.05); }
+header a { font-family: 'Outfit', sans-serif; }
+nav a { border-radius: 999px; padding: .55rem .75rem; transition: background .2s, color .2s, transform .2s; }
+nav a:hover { color: var(--ink) !important; background: #fef3c7; transform: translateY(-2px); }
+
+/* Product, order, summary, and detail panels get sturdy illustrated-card edges. */
+article, aside, .auth-card {
+  border: 2px solid var(--ink) !important;
+  border-radius: 1.4rem !important;
+  box-shadow: var(--sticker) !important;
+}
+article { transition: transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s; }
+article:hover { transform: translateY(-3px) rotate(-.35deg); }
+article img { border-radius: 1rem; }
+
+button:not(:disabled) { transition: transform .2s cubic-bezier(.34,1.56,.64,1), box-shadow .2s, background-color .2s, color .2s; }
+button:not(:disabled):active { transform: translate(2px, 2px) !important; box-shadow: 2px 2px 0 var(--ink) !important; }
+input, select, textarea, .auth-input {
+  border: 2px solid #cbd5e1 !important; border-radius: 1rem !important; background: #fff !important; color: var(--ink) !important;
+  box-shadow: 3px 3px 0 transparent; transition: border-color .2s, box-shadow .2s;
+}
+input:focus, select:focus, textarea:focus, .auth-input:focus { border-color: var(--violet) !important; box-shadow: 4px 4px 0 var(--violet) !important; outline: none !important; }
+
+/* Keep the signature colors on calls to action while making each one tactile. */
+.auth-button, main a[href='/checkout'], main a[href='/products'], main a[href='/orders'] {
+  border: 2px solid var(--ink); box-shadow: var(--pop); font-weight: 800;
+}
+.auth-button { background: var(--violet) !important; color: white !important; }
+.auth-button:hover, main a[href='/checkout']:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--ink) !important; }
+button[class*="bg-[#1e293b]"], a[class*="bg-[#1e293b]"] {
+  background-color: var(--violet) !important; border: 2px solid var(--ink); border-radius: 999px !important; box-shadow: var(--pop);
+}
+button[class*="bg-[#1e293b]"]:hover, a[class*="bg-[#1e293b]"]:hover {
+  background-color: #7c3aed !important; transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--ink) !important;
+}
+.auth-page { background-color: var(--paper) !important; background-image: radial-gradient(#c4b5fd 1px, transparent 1px) !important; background-size: 22px 22px !important; }
+.auth-page::before { opacity: .26; background-image: linear-gradient(rgba(30,41,59,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(30,41,59,.045) 1px, transparent 1px); }
+.auth-visual { border: 2px solid var(--ink); border-radius: 2rem 2rem 2rem 0; box-shadow: 8px 8px 0 var(--yellow); }
+.auth-card { background: #fff !important; backdrop-filter: none; }
+.auth-badge { border: 2px solid var(--ink); box-shadow: 4px 4px 0 var(--pink); }
+
+@media (max-width: 640px) {
+  article, aside, .auth-card { box-shadow: 3px 3px 0 #e2e8f0 !important; }
+  .auth-visual { min-height: 300px; box-shadow: 4px 4px 0 var(--yellow); }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
