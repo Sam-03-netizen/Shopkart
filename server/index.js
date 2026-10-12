@@ -16,7 +16,15 @@ import orderRoutes from './routes/order.routes.js'
 
 const app = express()
 const PORT = 8085
-app.use(cors({ origin: 'http://localhost:5173', credentials: true }))
+app.use(cors({
+  origin: [
+    'http://localhost:5173',
+    'https://shopkart-beryl.vercel.app'
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}))
 app.use(express.json())
 app.use(cookieParser())
 mongoose.connect(process.env.dbUrl)
