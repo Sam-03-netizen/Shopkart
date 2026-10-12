@@ -31,9 +31,16 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok' })
 })
 mongoose.connect(process.env.dbUrl)
-    .then(() => console.log('DB Connected'))
-    .catch((error) => console.log(error))
+  .then(() => {
+    console.log("MongoDB connected successfully");
 
+    app.listen(process.env.PORT || 8085, "0.0.0.0", () => {
+      console.log("Server started");
+    });
+  })
+  .catch((error) => {
+    console.error("MongoDB connection failed:", error.message);
+  });
 app.use('/customers', userRoutes)
 app.use('/products', productRoutes)
 app.use('/wishlist', wishlistRoutes)
