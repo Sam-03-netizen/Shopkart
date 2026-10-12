@@ -27,6 +27,9 @@ app.use(cors({
 }))
 app.use(express.json())
 app.use(cookieParser())
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok' })
+})
 mongoose.connect(process.env.dbUrl)
     .then(() => console.log('DB Connected'))
     .catch((error) => console.log(error))
@@ -36,4 +39,6 @@ app.use('/products', productRoutes)
 app.use('/wishlist', wishlistRoutes)
 app.use('/cart', cartRoutes)
 app.use('/orders', orderRoutes)
-app.listen(PORT, () => console.log(`Server started at ${PORT}`))
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server started at ${PORT}`)
+})

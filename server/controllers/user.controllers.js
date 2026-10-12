@@ -4,9 +4,11 @@ import { genToken } from "../utils/generateTokens.js";
 
 // COOKIE
 const cookiesOption = {
-    httpOnly:true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax"
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: process.env.NODE_ENV === 'production'
+        ? 'none'
+        : 'lax'
 }
 
 //CUSTOMER REGISTRATION
