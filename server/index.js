@@ -20,12 +20,22 @@ import orderRoutes from './routes/order.routes.js';
 const app = express();
 const PORT = process.env.PORT || 8085;
 
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://shopkart-beryl.vercel.app'
+];
+
 app.use(cors({
-  origin: [
-    'http://localhost:5173',
-    process.env.FRONTEND_URL
-  ].filter(Boolean),
-  credentials: true
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    return callback(new Error(`CORS blocked origin: ${origin}`));
+  },
+  credentials: true,
+  methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 app.use(express.json());
