@@ -18,7 +18,7 @@ function PublicRoute() {
   }, [])
 
   if (authStatus === 'checking') return <p role="status">Checking your session...</p>
-  if (authStatus === 'authenticated') return <Navigate to="/" replace />
+  if (authStatus === 'authenticated') return <Navigate to="/home" replace />
 
   return <Outlet />
 }

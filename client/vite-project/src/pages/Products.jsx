@@ -57,7 +57,7 @@ function Products() {
   return (
     <main className="min-h-screen bg-[#fffdf5] px-5 py-12 text-[#1e293b] sm:px-8">
       <div className="mx-auto max-w-7xl">
-        <Link to="/" className="inline-flex text-sm font-semibold text-[#7c3aed] transition hover:text-[#1e293b] focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8b5cf6]">← Back home</Link>
+        <Link to="/home" className="inline-flex text-sm font-semibold text-[#7c3aed] transition hover:text-[#1e293b] focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8b5cf6]">← Back home</Link>
         <div className="mt-6 flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
           <div>
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#7c3aed]">ShopKart collection</p>

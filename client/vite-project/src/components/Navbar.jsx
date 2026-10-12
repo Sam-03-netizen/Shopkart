@@ -19,7 +19,7 @@ function Navbar() {
   return (
     <header className="border-b border-[#1e293b]/10 bg-[#fffdf5]/95 px-5 py-5 backdrop-blur sm:px-8">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-6">
-        <Link className="text-2xl font-black tracking-[-0.06em]" to="/">
+        <Link className="text-2xl font-black tracking-[-0.06em]" to="/home">
           shop<span className="text-[#8b5cf6]">kart</span>
         </Link>
         <nav className="hidden items-center gap-8 text-sm font-semibold md:flex">

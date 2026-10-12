@@ -34,7 +34,7 @@ function Register() {
 
     try {
       await axiosInstance.post('customers/register', formData)
-      navigate('/')
+      navigate('/home')
     } catch (requestError) {
       setError(
         requestError.response?.data?.message ||

@@ -26,7 +26,7 @@ function Login() {
 
     try {
       await axiosInstance.post('customers/login', formData)
-      navigate('/')
+      navigate('/home')
     } catch (requestError) {
       setError(
         requestError.response?.data?.message ||
