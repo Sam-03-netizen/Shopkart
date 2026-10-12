@@ -97,7 +97,8 @@ export const loginCustomer = async (req, res) => {
         console.error("LOGIN ERROR:", error);
   res.status(500).json({
     message: "Internal Server Error"
-    }
+    })
+}
 }
 
 //GET CUSTOMER
