@@ -1,16 +1,31 @@
-# React + Vite
+# ShopKart storefront
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This folder contains the React storefront for ShopKart. The public landing page is at `/`; customer shopping features are available after logging in.
 
-Currently, two official plugins are available:
+## Run locally
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+From this folder, install dependencies and start Vite:
 
-## React Compiler
+```sh
+npm install
+npm run dev
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Vite serves the app at `http://localhost:5173`. The Express API must also be running at `http://localhost:8085`; see the [project setup guide](../../README.md#run-locally) for MongoDB, API environment variables, and Razorpay configuration. The API allows credentialed requests from the Vite development origin, and the storefront sends cookies with API requests.
 
-## Expanding the ESLint configuration
+## Scripts
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start the development server |
+| `npm run build` | Build production assets into `dist/` |
+| `npm run preview` | Preview the production build locally |
+| `npm run lint` | Run ESLint |
+
+## Main routes
+
+- `/` — public ShopKart landing page
+- `/login` and `/register` — customer authentication
+- `/home`, `/products`, `/wishlist`, `/cart`, `/checkout`, and `/orders` — signed-in storefront pages
+
+The storefront uses React 19, React Router, Vite, and Tailwind CSS 4.

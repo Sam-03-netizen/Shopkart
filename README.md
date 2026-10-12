@@ -1,28 +1,37 @@
 # ShopKart
 
-ShopKart is a full-stack shopping application with a React storefront and an Express/MongoDB API. Customers can browse and filter products, manage a cart and wishlist, check out, and view their orders.
+ShopKart is a full-stack shopping app with a React storefront and an Express/MongoDB API. Visitors can view the public landing page, then create an account or log in to browse products, manage a cart and wishlist, check out with Razorpay, and view their orders.
+
+## Features
+
+- Public landing page at `/` with links to sign up and log in
+- Product catalog with search, category filters, and price sorting (account required in the storefront)
+- Product detail pages, cart, and wishlist
+- Customer registration, login, logout, and password change
+- Razorpay checkout and order history
+- Cookie-based JWT authentication
 
 ## Tech stack
 
 - **Frontend:** React 19, Vite, React Router, Tailwind CSS 4
-- **Backend:** Node.js, Express 5, Mongoose, JWT cookies
-- **Payments:** Razorpay
+- **Backend:** Node.js, Express 5, Mongoose
 - **Database:** MongoDB
+- **Payments:** Razorpay
 
 ## Requirements
 
 - Node.js 20.19+ or 22.12+
 - npm
-- A running MongoDB instance
-- Razorpay test credentials to exercise payment checkout
+- MongoDB, running locally or available through a connection URL
+- Razorpay test credentials to exercise checkout
 
-## Setup
+## Run locally
 
 Open two terminals from the repository root.
 
-### 1. Configure the API
+### 1. Configure and start the API
 
-Create `server/.env` from the example:
+Create the API environment file from the example:
 
 ```powershell
 Copy-Item server/.env.example server/.env
@@ -47,7 +56,7 @@ npm install
 node index.js
 ```
 
-The API listens on `http://localhost:8085` and connects to the MongoDB URL in `dbUrl`.
+The API listens on `http://localhost:8085`. Its port and CORS origin (`http://localhost:5173`) are currently set in `server/index.js`. The database connection reads `dbUrl` from `server/.env`.
 
 ### 2. Start the storefront
 
@@ -59,7 +68,7 @@ npm install
 npm run dev
 ```
 
-Vite serves the storefront at `http://localhost:5173`. The API client is configured for `http://localhost:8085`, and the API allows credentialed requests from the Vite development origin.
+Vite serves the storefront at `http://localhost:5173`. The Axios client uses `http://localhost:8085` and sends credentials so the browser can use the API's authentication cookie. The API CORS origin must match the storefront origin.
 
 ## Frontend scripts
 
@@ -68,28 +77,56 @@ Run these from `client/vite-project`:
 | Command | Description |
 | --- | --- |
 | `npm run dev` | Start the Vite development server |
-| `npm run build` | Build the production assets into `dist/` |
+| `npm run build` | Build production assets into `dist/` |
 | `npm run preview` | Preview the production build locally |
 | `npm run lint` | Run ESLint |
 
-The backend package currently has no start or test script; start it with `node index.js`.
+The backend has no start script; use `node index.js` from `server/`. Its `npm test` command is a placeholder that exits with an error because backend tests are not configured.
 
-## API route groups
+## Routes
 
-The backend mounts these route groups at the API root:
+### Storefront
 
-| Prefix | Purpose |
-| --- | --- |
-| `/customers` | Registration, login, logout, and customer endpoints |
-| `/products` | Product listing, categories, and product details |
-| `/wishlist` | Wishlist operations |
-| `/cart` | Shopping cart operations |
-| `/orders` | Checkout and order history/details |
+| Path | Access | Purpose |
+| --- | --- | --- |
+| `/` | Public | Landing page |
+| `/login` | Public | Customer login |
+| `/register` | Public | Create an account |
+| `/home` | Signed in | Storefront home |
+| `/products` | Signed in | Browse and filter products |
+| `/products/:id` | Signed in | Product details |
+| `/wishlist` | Signed in | Saved products |
+| `/cart` | Signed in | Shopping cart |
+| `/checkout` | Signed in | Checkout |
+| `/orders` | Signed in | Order history |
+| `/orders/:id` | Signed in | Order details |
+| `/order-success/:id` | Signed in | Payment confirmation |
+
+### API
+
+The API base URL is `http://localhost:8085`. Routes marked **Signed in** require the JWT session cookie.
+
+| Method | Endpoint | Access | Purpose |
+| --- | --- | --- | --- |
+| `POST` | `/customers/register` | Public | Register a customer |
+| `POST` | `/customers/login` | Public | Log in |
+| `POST` | `/customers/logout` | Signed in | Log out |
+| `GET` | `/customers/me` | Signed in | Get the current customer |
+| `PATCH` | `/customers/change-password` | Signed in | Change password |
+| `GET` | `/products` | Public | List products (supports search, category, and sort query parameters) |
+| `GET` | `/products/categories` | Public | List product categories |
+| `GET` | `/products/:id` | Public | Get product details |
+| `POST` | `/products` | Public | Create a product (validated input) |
+| `GET`, `POST`, `DELETE` | `/wishlist` | Signed in | Get, add, or remove wishlist items |
+| `GET`, `POST`, `PATCH`, `DELETE` | `/cart` | Signed in | Get or modify cart items |
+| `POST` | `/orders/create-payment-order` | Signed in | Create a Razorpay payment order |
+| `POST` | `/orders/verify-payment` | Signed in | Verify payment |
+| `GET` | `/orders` | Signed in | List customer orders |
+| `GET` | `/orders/:id` | Signed in | Get an order |
 
 ## Project layout
 
 ```text
 client/vite-project/   React storefront
-server/                Express API and MongoDB models
+server/                Express API, routes, controllers, and MongoDB models
 ```
-
